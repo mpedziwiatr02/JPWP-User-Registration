@@ -2,32 +2,32 @@
 
 {% block content %}
 
-<h1 class="text-center mt-2">Zaloguj się</h1>
+<h1 class="text-center mt-2">Zarejstruj się</h1>
 <form method="POST">
     {% csrf_token %}
     <div class="row justify-content-center">
         <div class="col-md-2">
             <div class="form-group mb-3">
-                {% for field in form %}
+                    {% for field in form %}
                     <p>
-                        <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
-                        {% if field.errors %}
+	                    <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+		                {% if field.errors %}
 		                    <ul class="errorlist">
 			                {% for error in field.errors %}
 			                    <li>{{ error }}</li>
 			                {% endfor %}
 		                    </ul>
 		                {% endif %}
-                        {{ field }}
+	 	                {{ field }}
                     </p>
-                {% endfor %}
+	                {% endfor %}
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md mb-2">Zaloguj się</button>
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md mb-2">Zarejestruj się</button>
     </div>
 </form>
-<p class="text-center">Nie posiadasz konta? <a href="{% url 'register' %}">Zarejestruj się</a></p>
-
+<p class="text-center">Posiadasz już konto? <a href="{% url 'login' %}">Zaloguj się</a></p>
+ 
 {% endblock content %}

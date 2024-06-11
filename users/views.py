@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db import transaction
 from django.contrib.auth import login, authenticate, logout
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm, UpdateUserForm, UpdateProfileForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -36,6 +37,41 @@ def sign_out(request):
     return redirect('login')
 
 
+def register(request):
+    if request.method == 'GET':
+        form = RegisterForm()
+        return render(request, 'users/register.html', {'form': form})    
+   
+    if request.method == 'POST':
+        form = RegisterForm(request.POST) 
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            messages.success(request, 'Zarejestrowano pomyślnie.')
+            login(request, user)
+            return redirect('profile')
+        else:
+            return render(request, 'users/register.html', {'form': form})
+
+
 @login_required
+@transaction.atomic
 def profile(request):
-    return render(request,'users/profile.html')
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Twój profil został zaktualizowany.')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+    return render(request, 'users/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
