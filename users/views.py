@@ -23,7 +23,7 @@ def sign_in(request):
             user = authenticate(request,username=username,password=password)
             if user:
                 login(request, user)
-                messages.success(request,f'Cześć {username.title()}!')
+                messages.success(request,f'Zalogowano pomyślnie. Witaj { request.user.username }!')
                 return redirect('profile')
         
         # either form not valid or user is not authenticated
@@ -33,7 +33,7 @@ def sign_in(request):
 
 def sign_out(request):
     logout(request)
-    messages.success(request,f'Wylogowano.')
+    messages.success(request,f'Wylogowano pomyślnie.')
     return redirect('login')
 
 
@@ -67,7 +67,7 @@ def profile(request):
             messages.success(request, 'Twój profil został zaktualizowany.')
             return redirect('profile')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, 'Coś poszło nie tak. Popraw informacje i spróbuj ponownie.')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)

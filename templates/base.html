@@ -10,7 +10,7 @@
         {% load bootstrap5 %}
         {% bootstrap_css %}
         {% bootstrap_javascript %}
-        <title>My Site</title>
+        <title>{% block title %}My Site{% endblock title %}</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,6 +35,20 @@
             </div>
         </nav>
   	    <main>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == "error"%}
+                        <div class="alert alert-danger text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
 	        {% block content %} 
 
 	        {% endblock content %}

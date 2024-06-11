@@ -2,11 +2,45 @@
 
 {% block content %}
 
-<form method="post">
+<h1 class="text-center mt-2">Twój profil</h1>
+
+<form method="POST">
     {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <button type="submit">Zapisz zmiany</button>
-  </form>
+    <div class="row justify-content-center">
+        <div class="col-md-2">
+            <div class="form-group mb-3">
+                {% for field in user_form %}
+                    <p>
+                        <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                        {% if field.errors %}
+                            <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {{ field }}
+                    </p>
+                {% endfor %}
+                {% for field in profile_form %}
+                    <p>
+                        <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                        {% if field.errors %}
+                            <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {{ field }}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md mb-2">Zapisz zmiany</button>
+    </div>
+</form>
 
 {% endblock content %}
