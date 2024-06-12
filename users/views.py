@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm, RegisterForm, UserForm, ProfileForm, LocationForm, SensitiveForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+import pycountry
 
 
 def sign_in(request):
@@ -37,6 +38,7 @@ def sign_out(request):
     return redirect('login')
 
 
+@user_passes_test(lambda u: u.is_anonymous)
 def register(request):
     if request.method == 'GET':
         form = RegisterForm()
@@ -77,9 +79,16 @@ def profile(request):
         profile_form = ProfileForm(instance=request.user.profile)
         location_form = LocationForm(instance=request.user.profile)
         sensitive_form = SensitiveForm(instance=request.user.profile)
+    
+    subdivisions_dict = {}
+    for country in pycountry.countries:
+        subdivisions = pycountry.subdivisions.get(country_code=country.alpha_2)
+        subdivisions_dict[country.name] = [(subd.code, subd.name) for subd in subdivisions]
+
     return render(request, 'users/profile.html', {
         'user_form': user_form,
         'profile_form': profile_form,
         'location_form': location_form,
-        'sensitive_form': sensitive_form
+        'sensitive_form': sensitive_form,
+        'subdivisions_dict': subdivisions_dict
     })

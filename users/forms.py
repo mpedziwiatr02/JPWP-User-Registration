@@ -52,8 +52,8 @@ class ProfileForm(forms.ModelForm):
 
 
 class LocationForm(forms.ModelForm):
-    country = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=[(name, name) for name in [country.name for country in pycountry.countries]]), required=False, label='Kraj')
-    voivodeship = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), required=False, label='Województwo')
+    country = forms.CharField(widget=forms.Select(attrs={'class': 'form-control', 'id': 'id-country'}, choices=[(name, name) for name in [country.name for country in pycountry.countries]]), required=False, label='Kraj')
+    region = forms.CharField(widget=forms.Select(attrs={'class': 'form-control', 'id': 'id-region'}), required=False, label='Region')
     city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=30, required=False, label='Miejscowość')
     postcode = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}), min_value=0, max_value=99999, required=False, label='Kod pocztowy')
     time_zone = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=[(x, x) for x in pytz.common_timezones]), required=False, label='Strefa czasowa')
@@ -63,7 +63,7 @@ class LocationForm(forms.ModelForm):
 
     class Meta:
         model = models.Profile
-        fields = ['country', 'time_zone', 'voivodeship', 'city', 'postcode', 'street', 'street_no', 'house_no']
+        fields = ['country', 'time_zone', 'region', 'city', 'postcode', 'street', 'street_no', 'house_no']
 
 
 class SensitiveForm(forms.ModelForm):

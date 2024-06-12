@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}Twój profil{% endblock title %}
+
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock head %}
+
 {% block content %}
 
 <h1 class="text-center mt-2">Twój profil</h1>
@@ -72,5 +78,42 @@
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md mb-2">Zapisz zmiany</button>
     </div>
 </form>
+
+<script type="text/javascript">
+    var subdivisionsDict = {{ subdivisions_dict | safe }};
+
+    $(document).ready(function() {
+
+        var $region = $('#id-region');
+
+        function populateRegions(country) {
+            $region.empty();
+            $region.append('<option value=""></option>');
+
+            if (country in subdivisionsDict) {
+                var subdivisions = subdivisionsDict[country];
+                $.each(subdivisions, function(index, name) {
+                    $region.append('<option value="' + name + '">' + name + '</option>');
+                });
+            }
+        }
+
+        var country = $('#id-country').val();
+        var region = "{{ location_form.instance.region }}";
+        if (country) {
+            populateRegions(country);
+        }
+
+        if (region) {
+            $region.val(region);
+        }
+
+        $('#id-country').change(function() {
+            var country = $(this).val();
+            populateRegions(country);
+        });
+
+    });
+</script>
 
 {% endblock content %}
