@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth import login, authenticate, logout
-from .forms import LoginForm, RegisterForm, UpdateUserForm, UpdateProfileForm
+from .forms import LoginForm, RegisterForm, UserForm, ProfileForm, LocationForm, SensitiveForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -59,19 +59,27 @@ def register(request):
 @transaction.atomic
 def profile(request):
     if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        location_form = LocationForm(request.POST, instance=request.user.profile)
+        sensitive_form = SensitiveForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid() and location_form.is_valid() and sensitive_form.is_valid():
             user_form.save()
             profile_form.save()
+            location_form.save()
+            sensitive_form.save()
             messages.success(request, 'Twój profil został zaktualizowany.')
             return redirect('profile')
         else:
             messages.error(request, 'Coś poszło nie tak. Popraw informacje i spróbuj ponownie.')
     else:
-        user_form = UpdateUserForm(instance=request.user)
-        profile_form = UpdateProfileForm(instance=request.user.profile)
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+        location_form = LocationForm(request.POST, instance=request.user.profile)
+        sensitive_form = SensitiveForm(request.POST, instance=request.user.profile)
     return render(request, 'users/profile.html', {
         'user_form': user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'location_form': location_form,
+        'sensitive_form': sensitive_form
     })
