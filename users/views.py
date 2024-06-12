@@ -75,8 +75,8 @@ def profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-        location_form = LocationForm(request.POST, instance=request.user.profile)
-        sensitive_form = SensitiveForm(request.POST, instance=request.user.profile)
+        location_form = LocationForm(instance=request.user.profile)
+        sensitive_form = SensitiveForm(instance=request.user.profile)
     return render(request, 'users/profile.html', {
         'user_form': user_form,
         'profile_form': profile_form,
