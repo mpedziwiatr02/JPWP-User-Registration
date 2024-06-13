@@ -79,6 +79,10 @@
     </div>
 </form>
 
+{% if users.profile.avatar %}
+    <img src="{{ users.profile.avatar.url }}" alt="Avatar" />
+{% endif %}
+
 <script type="text/javascript">
     var subdivisionsDict = {{ subdivisions_dict | safe }};
 
@@ -100,6 +104,7 @@
 
         var country = $('#id-country').val();
         var region = "{{ location_form.instance.region }}";
+        
         if (country) {
             populateRegions(country);
         }

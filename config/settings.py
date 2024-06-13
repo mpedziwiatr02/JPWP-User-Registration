@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # New
+    # ADDED
     'bootstrap5',
     'users',
 ]
@@ -126,5 +126,5 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Login URL
+# ADDED
 LOGIN_URL = '/login'
