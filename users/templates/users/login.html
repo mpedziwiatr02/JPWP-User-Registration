@@ -16,9 +16,9 @@
                         <!-- Wyświetlenie etykiety formularza -->
                         <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
                         {% if field.errors %}
-                            <ul class="list-group">
+                            <ul class="list-group login-errors">
                             {% for error in field.errors %}
-                                <li class="list-group-item list-group-item-danger">Pole ➤ {{ field.label }}. {{ error }}</li>
+                                <li class="list-group-item list-group-item-danger mb-1">Pole ➤ {{ field.label }}. {{ error }}</li>
                             {% endfor %}
                             </ul>
                         {% endif %}

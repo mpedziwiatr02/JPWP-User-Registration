@@ -19,3 +19,8 @@
     left: 30%;
     bottom: 0%;
 }
+
+/* Ustawienia dla klas 'login-errors', 'register-errors' */
+.login-errors, .register-errors {
+    bottom: 26%;
+}
