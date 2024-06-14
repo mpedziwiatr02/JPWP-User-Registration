@@ -8,6 +8,7 @@ from django.forms import ValidationError
 
 
 def validate_avatar(file):
+    # Funkcja walidująca przesłany plik avatara
     valid_extensions = [".jpg", ".jpeg", ".png", ".gif"]
     file_extension = os.path.splitext(file.name)[1]
     file_size = file.size
@@ -22,13 +23,15 @@ def validate_avatar(file):
         raise ValidationError(
             f"Ten plik przekracza limit 25 MB. Rozmiar: {file_size / (1024 * 1024):.2f} MB."
         )
-    
+
 
 def user_directory(instance, filename):
-    return '{0}/avatar.{1}'.format(instance.user.username, filename.split(".")[-1])
+    # Funkcja generująca ścieżkę zapisu avatara użytkownika
+    return "{0}/avatar.{1}".format(instance.user.username, filename.split(".")[-1])
 
 
 class Profile(models.Model):
+    # Model przechowujący dane profilu użytkownika
     GENDER_CHOICES = (
         ("M", "Mężczyzna"),
         ("K", "Kobieta"),
@@ -38,10 +41,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.FileField(
-        null=True,
-        blank=True,
-        upload_to=user_directory,
-        validators=[validate_avatar]
+        null=True, blank=True, upload_to=user_directory, validators=[validate_avatar]
     )
     bio = models.TextField(blank=True, max_length=512)
     birth_date = models.DateField(null=True, blank=True)
@@ -106,10 +106,12 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    # Automatyczne tworzenie profilu użytkownika po utworzeniu użytkownika
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    # Automatyczne zapisywanie profilu użytkownika po zapisaniu użytkownika
     instance.profile.save()

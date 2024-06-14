@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # ADDED: Django Cleanup for automatic file cleanup
     'django_cleanup.apps.CleanupConfig',
-    # ADDED
+    # ADDED: Bootstrap 5 for styling
     'bootstrap5',
+    # ADDED: Users app for custom user management
     'users',
 ]
 
@@ -128,8 +130,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ADDED
+# ADDED: URL for login redirection
 LOGIN_URL = '/login'
 
+# ADDED: Media files configuration
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

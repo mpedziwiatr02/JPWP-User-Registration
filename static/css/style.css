@@ -2,6 +2,7 @@
     --bs-gutter-x: 0 !important;
 }
 
+/* Ustawienia dla klasy 'alert' (alerty są wyświetlane na górze) */
 .alert {
     width: 40%;
     height: 56px;
@@ -10,6 +11,7 @@
     top: 0%;
 }
 
+/* Ustawienia dla klasy 'list-group' (błędy formularzy są wyświetlane na dole) */
 .list-group {
     width: 40%;
     height: 56px;

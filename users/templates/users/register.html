@@ -13,20 +13,24 @@
             <div class="form-group mb-3">
                     {% for field in form %}
                     <p>
+                        <!-- Wyświetlenie etykiety formularza -->
 	                    <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
 		                {% if field.errors %}
-		                    <ul class="errorlist">
-			                {% for error in field.errors %}
-			                    <li>{{ error }}</li>
-			                {% endfor %}
-		                    </ul>
-		                {% endif %}
+                            <!-- Wyświetlenie komunikatów o błędach dla pola formularza -->
+                            <ul class="list-group">
+                            {% for error in field.errors %}
+                                <li class="list-group-item list-group-item-danger">Pole ➤ {{ field.label }}. {{ error }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <!-- Wyświetlenie pola formularza -->
 	 	                {{ field }}
                     </p>
 	                {% endfor %}
             </div>
         </div>
     </div>
+    <!-- Przycisk do zatwierdzenia formularza -->
     <div class="d-flex justify-content-center">
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md mb-2">Zarejestruj się</button>
     </div>

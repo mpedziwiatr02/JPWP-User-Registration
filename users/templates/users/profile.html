@@ -13,13 +13,15 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row justify-content-center">
+        <!-- Formularz dla wrażliwych danych użytkownika -->
         <div class="col-md-3 mx-3">
             <div class="form-group mb-3">
                 {% for field in sensitive_form %}
                     {% if field.errors %}
+                        <!-- Wyświetlenie komunikatów o błędach dla pola formularza -->
                         <ul class="list-group">
                         {% for error in field.errors %}
-                            <li class="list-group-item list-group-item-danger">Pole: {{ field.label }}. {{ error }}</li>
+                            <li class="list-group-item list-group-item-danger">Pole ➤ {{ field.label }}. {{ error }}</li>
                         {% endfor %}
                         </ul>
                     {% endif %}
@@ -30,12 +32,15 @@
                 {% endfor %}
             </div>
         </div>
+
+        <!-- Formularz dla danych użytkownika i jego profilu -->
         <div class="col-md-3 mx-3">
                 {% for field in user_form %}
                     {% if field.errors %}
+                        <!-- Wyświetlenie komunikatów o błędach dla pola formularza -->
                         <ul class="list-group">
                         {% for error in field.errors %}
-                            <li class="list-group-item list-group-item-danger">Pole: {{ field.label }}. {{ error }}</li>
+                            <li class="list-group-item list-group-item-danger">Pole ➤ {{ field.label }}. {{ error }}</li>
                         {% endfor %}
                         </ul>
                     {% endif %}
@@ -46,9 +51,10 @@
                 {% endfor %}
                 {% for field in profile_form %}
                     {% if field.errors %}
+                        <!-- Wyświetlenie komunikatów o błędach dla pola formularza -->
                         <ul class="list-group">
                         {% for error in field.errors %}
-                            <li class="list-group-item list-group-item-danger">Pole: {{ field.label }}. {{ error }}</li>
+                            <li class="list-group-item list-group-item-danger">Pole ➤ {{ field.label }}. {{ error }}</li>
                         {% endfor %}
                         </ul>
                     {% endif %}
@@ -58,12 +64,15 @@
                     </p>
                 {% endfor %}
         </div>
+
+        <!-- Formularz dla lokalizacji użytkownika -->
         <div class="col-md-3 mx-3">
                 {% for field in location_form %}
                     {% if field.errors %}
+                        <!-- Wyświetlenie komunikatów o błędach dla pola formularza -->
                         <ul class="list-group">
                         {% for error in field.errors %}
-                            <li class="list-group-item list-group-item-danger">Pole: {{ field.label }}. {{ error }}</li>
+                            <li class="list-group-item list-group-item-danger">Pole ➤ {{ field.label }}. {{ error }}</li>
                         {% endfor %}
                         </ul>
                     {% endif %}
@@ -76,6 +85,8 @@
                         </p>
                     {% endif %}
                 {% endfor %}
+
+                <!-- Wyświetlenie pól city i postcode obok siebie w jednym rzędzie -->
                 <div class="row">
                     <div class="col-8 me-2">
                         <p>
@@ -90,6 +101,8 @@
                         </p>
                     </div>
                 </div>
+
+                <!-- Wyświetlenie pól street, street_no i house_no obok siebie w jednym rzędzie -->
                 <div class="row">
                     <div class="col-6 me-2">
                         <p>
@@ -112,11 +125,13 @@
                 </div>
         </div>
     </div>
+    <!-- Przycisk do zatwierdzenia formularza -->
     <div class="d-flex justify-content-center">
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-md mb-2">Zapisz zmiany</button>
     </div>
 </form>
 
+<!-- Skrypt do obsługi wyboru regionów na podstawie wybranego wcześniej kraju -->
 <script type="text/javascript">
     var subdivisionsDict = {{ subdivisions_dict | safe }};
 

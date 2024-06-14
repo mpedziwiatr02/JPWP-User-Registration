@@ -7,6 +7,7 @@ import pycountry
 
 
 class LoginForm(forms.Form):
+    # Formularz logowania z polami nazwa użytkownika i hasło
     username = forms.CharField(max_length=64, label="Nazwa użytkownika")
     password = forms.CharField(
         max_length=128, widget=forms.PasswordInput, label="Hasło"
@@ -14,23 +15,27 @@ class LoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Dodanie klasy CSS do wszystkich widocznych pól formularza
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = "form-control"
 
 
 class RegisterForm(UserCreationForm):
     class Meta:
+        # Model użytkownika oraz pola uwzględnione w formularzu rejestracji
         model = User
         fields = ["username", "email", "password1", "password2"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Dodanie klasy CSS do wszystkich widocznych pól formularza
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = "form-control"
 
 
 class UserForm(forms.ModelForm):
     class Meta:
+        # Model użytkownika oraz pola uwzględnione w formularzu edycji użytkownika
         model = User
         fields = ["username", "email"]
 
@@ -50,6 +55,7 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
+        # Model profilu oraz pola uwzględnione w formularzu edycji profilu
         model = models.Profile
         fields = ["phone", "avatar", "website", "bio"]
 
@@ -79,12 +85,14 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Zmiana etykiet w polu avatar
         self.fields["avatar"].widget.clear_checkbox_label = "Usuń"
         self.fields["avatar"].widget.initial_text = ""
 
 
 class LocationForm(forms.ModelForm):
     class Meta:
+        # Model profilu oraz pola uwzględnione w formularzu lokalizacji
         model = models.Profile
         fields = [
             "country",
@@ -158,6 +166,7 @@ class LocationForm(forms.ModelForm):
 
 class SensitiveForm(forms.ModelForm):
     class Meta:
+        # Model profilu oraz pola uwzględnione w formularzu danych wrażliwych
         model = models.Profile
         fields = ["name", "surname", "gender", "birth_date"]
 
