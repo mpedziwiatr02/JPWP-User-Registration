@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # ADDED: Django Cleanup for automatic file cleanup
     'django_cleanup.apps.CleanupConfig',
     # ADDED: Bootstrap 5 for styling
-    'bootstrap5',
+    'django_bootstrap5',
     # ADDED: Users app for custom user management
     'users',
 ]
