@@ -12,6 +12,7 @@ from .forms import (
 )
 from django.contrib.auth.decorators import login_required, user_passes_test
 import pycountry
+import os
 
 
 def sign_in(request):
@@ -71,7 +72,7 @@ def register(request):
 def profile(request):
     if request.method == "POST":
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         location_form = LocationForm(request.POST, instance=request.user.profile)
         sensitive_form = SensitiveForm(request.POST, instance=request.user.profile)
         if (

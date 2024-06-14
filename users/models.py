@@ -15,13 +15,17 @@ def validate_avatar(file):
 
     if file_extension.lower() not in valid_extensions:
         raise ValidationError(
-            f'Ten format jest niewspierany. Dostępne formaty: {", ".join(valid_extensions)}.'
+            f'Ten format jest niepoprawny. Dostępne formaty: {", ".join(valid_extensions)}.'
         )
 
     if file_size > max_file_size:
         raise ValidationError(
             f"Ten plik przekracza limit 25 MB. Rozmiar: {file_size / (1024 * 1024):.2f} MB."
         )
+    
+
+def user_directory(instance, filename):
+    return '{0}/avatar.{1}'.format(instance.user.username, filename.split(".")[-1])
 
 
 class Profile(models.Model):
@@ -36,7 +40,7 @@ class Profile(models.Model):
     avatar = models.FileField(
         null=True,
         blank=True,
-        upload_to="static/",
+        upload_to=user_directory,
         validators=[validate_avatar]
     )
     bio = models.TextField(blank=True, max_length=512)

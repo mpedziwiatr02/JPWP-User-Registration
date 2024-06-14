@@ -1,3 +1,19 @@
 .row {
     --bs-gutter-x: 0 !important;
 }
+
+.alert {
+    width: 40%;
+    height: 56px;
+    position: absolute !important;
+    left: 30%;
+    top: 0%;
+}
+
+.list-group {
+    width: 40%;
+    height: 56px;
+    position: fixed !important;
+    left: 30%;
+    bottom: 0%;
+}

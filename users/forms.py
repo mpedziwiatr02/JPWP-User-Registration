@@ -30,6 +30,10 @@ class RegisterForm(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["username", "email"]
+
     username = forms.CharField(
         max_length=64,
         required=True,
@@ -43,12 +47,12 @@ class UserForm(forms.ModelForm):
         label="Adres e-mail",
     )
 
-    class Meta:
-        model = User
-        fields = ["username", "email"]
-
 
 class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ["phone", "avatar", "website", "bio"]
+
     phone = forms.CharField(
         widget=forms.TextInput(attrs={"class": "form-control"}),
         max_length=32,
@@ -56,7 +60,7 @@ class ProfileForm(forms.ModelForm):
         label="Numer telefonu",
     )
     avatar = forms.ImageField(
-        widget=forms.FileInput(attrs={"class": "form-control-file"}),
+        widget=forms.ClearableFileInput(attrs={"class": "form-control-file"}),
         required=False,
         label="Zdjęcie profilowe",
     )
@@ -73,12 +77,26 @@ class ProfileForm(forms.ModelForm):
         label="Opis",
     )
 
-    class Meta:
-        model = models.Profile
-        fields = ["phone", "avatar", "website", "bio"]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["avatar"].widget.clear_checkbox_label = "Usuń"
+        self.fields["avatar"].widget.initial_text = ""
 
 
 class LocationForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = [
+            "country",
+            "time_zone",
+            "region",
+            "city",
+            "postcode",
+            "street",
+            "street_no",
+            "house_no",
+        ]
+
     country = forms.CharField(
         widget=forms.Select(
             attrs={"class": "form-control", "id": "id-country"},
@@ -128,30 +146,21 @@ class LocationForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "form-control"}),
         max_length=8,
         required=False,
-        label="Numer domu",
+        label="Dom",
     )
     house_no = forms.CharField(
         widget=forms.TextInput(attrs={"class": "form-control"}),
         max_length=8,
         required=False,
-        label="Numer mieszkania",
+        label="Mieszkanie",
     )
-
-    class Meta:
-        model = models.Profile
-        fields = [
-            "country",
-            "time_zone",
-            "region",
-            "city",
-            "postcode",
-            "street",
-            "street_no",
-            "house_no",
-        ]
 
 
 class SensitiveForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ["name", "surname", "gender", "birth_date"]
+
     birth_date = forms.DateField(
         widget=forms.DateInput(
             attrs={"class": "form-control", "type": "date"}, format="%Y-%m-%d"
@@ -178,7 +187,3 @@ class SensitiveForm(forms.ModelForm):
         required=False,
         label="Płeć",
     )
-
-    class Meta:
-        model = models.Profile
-        fields = ["name", "surname", "gender", "birth_date"]
