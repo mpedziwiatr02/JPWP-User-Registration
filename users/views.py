@@ -15,6 +15,9 @@ import pycountry
 import os
 
 
+def root(request):
+    return redirect("profile")
+
 def sign_in(request):
     if request.method == "GET":
         if request.user.is_authenticated:
