@@ -18,7 +18,7 @@
                         {% if field.errors %}
                             <ul class="list-group login-errors">
                             {% for error in field.errors %}
-                                <li class="list-group-item list-group-item-danger mb-1">Pole ➤ {{ field.label }}. {{ error }}</li>
+                                <li class="list-group-item list-group-item-danger mb-1">{{ error }}</li>
                             {% endfor %}
                             </ul>
                         {% endif %}
