@@ -1,0 +1,41 @@
+1. Jakie dekoratory można użyć, aby zabezpieczyć widoki Django przed nieautoryzowanym dostępem?
+
+	[*] @login_required
+    [ ] @secure_view
+    [*] @user_passes_test
+    [ ] @csrf_exempt
+
+2. Do czego służy metoda POST?
+
+	[ ] Do tworzenia formularza.
+	[ ] Do wyszukiwania np. jakiejś frazy.
+	[*] Do przesyłania danych i wprowadzania zmian w systemie.
+	[ ] Do zawieszenia korutyny.
+	
+3. asyncIO:
+
+	[*] Umożliwia pracę z korutynami.
+	[ ] Jest wielowątkowe.
+	[ ] Jest biblioteką w Javie.
+	[*] Jest jednowątkowe.
+	
+4. Dzięki programowaniu asynchronicznemu, można:
+	
+	[ ] Uzyskać wielowątkowość.
+	[*] Zmienić kolejność wykonywania się funkcji w kodzie.
+	[*] Osiągnąć współbieżność.
+	[ ] Tworzyć formularze.
+	
+5. await służy do:
+	
+	[ ] Definiowania korutyny.
+	[ ] Wyszukiwania danych w bazie.
+	[ ] Logowania użytkownika.
+	[*] Zawieszenia i wznawiania korutyny.
+	
+6. Które z poniższych są prawdziwe w odniesieniu do funkcji authenticate() w Django?
+
+    [*] Sprawdza poświadczenia w bazie danych i zwraca obiekt użytkownika, jeśli są prawidłowe.
+    [ ] Zwraca True, jeśli poświadczenia są poprawne, i False w przeciwnym razie.
+    [*] Musi być poprzedzona funkcją login(), aby zalogować użytkownika.
+    [ ] Podnosi wyjątek, jeśli poświadczenia są nieprawidłowe.
