@@ -1,3 +1,0 @@
-1. Zmienić fragment kodu aby funkcje stały się korutynami i wykonały się w odpowiedniej kolejności.
-2. Stworzyć formularz rejestracyjny zawierający pola nazwa użytkownika, e-mail, hasło i potwierdzenie hasła ( w forms.py ).
-3. Dodać pola imię i nazwisko do profilu ( w models.py ).
