@@ -1,6 +1,6 @@
 # Installation
 
-Web application for user registration made in Python. Install using:
+Web application for user registration made in Python. Install and run using:
 
 ```
 git clone https://github.com/mpedziwiatr02/JPWP-User-Registration
