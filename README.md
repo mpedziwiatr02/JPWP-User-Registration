@@ -49,9 +49,7 @@ Send a screenshot containing your code in `models.py`.
 
 # Task 3
 
-Unless you’re planning to build websites and applications that do nothing but publish content, and don’t accept input from your visitors, you’re going to need to understand and use forms.
-
-Django provides a range of tools and libraries to help you build forms to accept input from site visitors, and then process and respond to the input.
+Unless you’re planning to build websites and applications that do nothing but publish content, and don’t accept input from your visitors, you’re going to need to understand and use forms. Django provides a range of tools and libraries to help you build forms to accept input from site visitors, and then process and respond to the input.
 
 Learn more about Forms [here](https://docs.djangoproject.com/en/5.0/topics/forms/).
 
